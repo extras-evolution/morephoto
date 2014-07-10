@@ -23,7 +23,7 @@ this.bind('addItem', function(e,src){
         json.fieldValue = [];
     
     $(this).parent().find('.item input').each(function(){
-		json.fieldValue.push( {'image':this.value} );
+        json.fieldValue.push( {'image':this.value} );
     });
     json.fieldSettings = {"autoincrement":1};
     $(this).val(JSON.stringify(json));
@@ -39,9 +39,21 @@ this.bind('addItem', function(e,src){
         'click' : function(){
             var item = $(self).triggerHandler('addItem').hide();
             var lastVal = $('input', item).val();
-            
             lastImageCtrl = $('input', item).attr("id");
-            window.open(cfg.baseUrl+'manager/media/browser/mcpuk/browser.html?Type=images&Connector='+cfg.baseUrl+'manager/media/browser/mcpuk/connectors/php/connector.php&ServerPath='+cfg.baseUrl, 'FCKBrowseWindow', 'toolbar=no,status=no,resizable=yes,dependent=yes,width='+screen.width * 0.7+',height='+screen.height*0.7+',left='+screen.width*0.3/2+',top=' + screen.height*0.3/2);
+            window.KCFinder = {};
+            window.KCFinder.callBackMultiple = function(files) {
+            window.KCFinder = null;
+                SetUrl(files[0]);
+                for (var i=1; i < files.length; i++) {
+                    $(self).trigger('addItem',files[i]);
+                    lastImageCtrl = $('input', item).attr("id");
+                }
+                $(self).trigger('sync');
+            }
+            var w = screen.width * 0.7;
+            var h = screen.height * 0.7;
+            OpenServerBrowser('media/browser/mcpuk/browse.php?type=images&langCode=ru', w, h);
+            //window.open(cfg.baseUrl+'manager/media/browser/mcpuk/browser.html?Type=images&Connector='+cfg.baseUrl+'manager/media/browser/mcpuk/connectors/php/connector.php&ServerPath='+cfg.baseUrl, 'FCKBrowseWindow', 'toolbar=no,status=no,resizable=yes,dependent=yes,width='+screen.width * 0.7+',height='+screen.height*0.7+',left='+screen.width*0.3/2+',top=' + screen.height*0.3/2);
 
             clearInterval(inputListner);
             inputListner = setInterval(function(){
@@ -84,7 +96,7 @@ this.bind('addItem', function(e,src){
 function thumb(src,w,h){
 //return src ? '../assets/plugins/managermanager/widgets/multiphoto/phpthumb/phpThumb.php?src=../../../../../../'+src+'&w='+(w||70)+'&h='+(h||70)+'&zc=1' : '';
     //return cfg.baseUrl+(src||'').replace(/(.*\/)(.*)/,"jQuery1.thumbs/jQuery2");
-    return cfg.baseUrl+(src||'').replace(/(.*\/)(.*\/)(.*)/,"$1.thumbs/$2$3");
+    return (cfg.baseUrl+(src||'')).replace(cfg.baseUrl+(src||'')+"assets/images",cfg.baseUrl+(src||'')+"/.thumbs/images/");
 }
 
 return this;
@@ -99,7 +111,6 @@ return this;
 * DON'T MODIFY THIS!
 */
 var lastFileCtrl,lastImageCtrl;function SetUrl(url, width, height, alt){if(lastFileCtrl) {var c = document.mutate[lastFileCtrl];if(c)c.value = url;lastFileCtrl='';}else if(lastImageCtrl){var c=document.mutate[lastImageCtrl];if(c)c.value=url;lastImageCtrl='';}else{return;}}
-
 /*! jQuery UI - v1.10.0 - 2013-02-05
 * http://jqueryui.com
 * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.sortable.js
