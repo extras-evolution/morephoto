@@ -14,8 +14,9 @@ this.bind('addItem', function(e,src){
         "mouseleave" : function(){ itemRemove.stop().fadeTo(150,0) },    /* show close button */
         "html" : itemInput.add(itemImage).add(itemRemove)
     })
-    .insertBefore($(this).siblings('.addButton'))
-    $(this).parent().sortable("refresh")
+    .insertBefore($(this).siblings('.addButton'));
+    $(this).parent().sortable("refresh");
+    itemImage.css('margin-top',Math.floor((item.height() - itemImage.height()) / 2));
     return item;
 })
 .bind('sync', function(){
@@ -96,7 +97,7 @@ this.bind('addItem', function(e,src){
 function thumb(src,w,h){
 //return src ? '../assets/plugins/managermanager/widgets/multiphoto/phpthumb/phpThumb.php?src=../../../../../../'+src+'&w='+(w||70)+'&h='+(h||70)+'&zc=1' : '';
     //return cfg.baseUrl+(src||'').replace(/(.*\/)(.*)/,"jQuery1.thumbs/jQuery2");
-    return (cfg.baseUrl+(src||'')).replace(cfg.baseUrl+(src||'')+"assets/images",cfg.baseUrl+(src||'')+"/.thumbs/images/");
+    return (cfg.baseUrl+(src||'')).replace(cfg.baseUrl+'assets/',cfg.baseUrl+"assets/.thumbs/");
 }
 
 return this;
@@ -110,7 +111,7 @@ return this;
 /*!
 * DON'T MODIFY THIS!
 */
-var lastFileCtrl,lastImageCtrl;function SetUrl(url, width, height, alt){if(lastFileCtrl) {var c = document.mutate[lastFileCtrl];if(c)c.value = url;lastFileCtrl='';}else if(lastImageCtrl){var c=document.mutate[lastImageCtrl];if(c)c.value=url;lastImageCtrl='';}else{return;}}
+var lastFileCtrl,lastImageCtrl;function SetUrl(url, width, height, alt){if(lastFileCtrl){var c = document.mutate[lastFileCtrl];if(c)c.value = url;lastFileCtrl='';}else if(lastImageCtrl){var c=document.mutate[lastImageCtrl];if(c)c.value=url;lastImageCtrl='';}else{return;}}
 /*! jQuery UI - v1.10.0 - 2013-02-05
 * http://jqueryui.com
 * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.sortable.js

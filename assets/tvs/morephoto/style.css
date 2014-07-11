@@ -1,11 +1,13 @@
 .mpTv textarea, .mpTv input, .mpTv select{display:none;}
 
 .mpTv>div{
-  width:64px; height:64px;
+  width:96px; height:96px;
   margin:0 10px 10px 0;
-  float:left;
+  float:left;line-height: 96px;
   border:1px #ccc solid;
   position:relative;
+  padding:8px;
+  text-align: center;
   background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABBJREFUeNpi+P//fzxAgAEACVsDXYbfqiYAAAAASUVORK5CYII=');
 }
 
@@ -16,8 +18,8 @@ div.addButton{
 }
 
 .item:active{cursor:move;}
-.item img{width:48px; height:48px; margin:8px;}
+.item img{max-width:100%; max-height:100%;}
 .item span{
-  background:url(../../../../../manager/media/style/MODxCarbon/images/icons/delete.png);
+  background:url(../../../manager/media/style/MODxCarbon/images/icons/delete.png);
   position:absolute; display:block; width:16px; height:16px; cursor:pointer; right:-8px; top:-8px; display:none
 }
