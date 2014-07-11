@@ -60,7 +60,9 @@ this.bind('addItem', function(e,src){
             inputListner = setInterval(function(){
                 if(lastVal!=$('input', item).val()){
                     clearInterval(inputListner);
-                    item.css({"opacity":0}).animate({"width":'show', "margin-right":'show'},200).animate({"opacity":1},200).find('img').attr({"src":thumb($('input', item).val())});
+                    //item.css({"opacity":0}).animate({"width":'show', "margin-right":'show'},200).animate({"opacity":1},200).find('img').attr({"src":thumb($('input', item).val())});
+                    item.css({"opacity":0}).animate({"width":'show', "margin-right":'show'},200,function(){itemImage = item.find('img');itemImage.attr({"src":thumb($('input', item).val())}).css('margin-top',Math.floor((item.height() - itemImage.height()) / 2))}).animate({"opacity":1},200);
+                    
                     $(self).trigger('sync');
                 }
             },50);
