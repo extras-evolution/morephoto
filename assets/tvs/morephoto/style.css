@@ -1,7 +1,11 @@
 .mpTv textarea, .mpTv input, .mpTv select{display:none;}
 
 .mpTv>div{
+<<<<<<< HEAD
   width:96px; height:96px;
+=======
+  width:112px; height:112px;
+>>>>>>> 68bf6ef9f7861e250d2fdc440c7108c26d5f4805
   margin:0 10px 10px 0;
   float:left;line-height: 96px;
   border:1px #ccc solid;
@@ -18,7 +22,11 @@ div.addButton{
 }
 
 .item:active{cursor:move;}
+<<<<<<< HEAD
 .item img{max-width:100%; max-height:100%;}
+=======
+.item img{width:96px; height:96px; margin:8px;}
+>>>>>>> 68bf6ef9f7861e250d2fdc440c7108c26d5f4805
 .item span{
   background:url(../../../manager/media/style/MODxCarbon/images/icons/delete.png);
   position:absolute; display:block; width:16px; height:16px; cursor:pointer; right:-8px; top:-8px; display:none
