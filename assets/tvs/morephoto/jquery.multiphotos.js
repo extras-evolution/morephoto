@@ -8,15 +8,14 @@ this.bind('addItem', function(e,src){
     var itemRemove = $("<span/>",{ "click" : function(){
         $(this).parent().animate({"opacity":0},200).animate({"width":"hide","margin-right":"hide"},200,function(){$(this).remove(); $(self).trigger('sync');});
     }})
-
+    var imageWrap = $("<div/>").append(itemImage);
     var item = $('<div/>',{ "class" : "item",
         "mouseenter" : function(){ itemRemove.stop().fadeTo(150,1) }, /* hide */
         "mouseleave" : function(){ itemRemove.stop().fadeTo(150,0) },    /* show close button */
-        "html" : itemInput.add(itemImage).add(itemRemove)
+        "html" : itemInput.add(imageWrap).add(itemRemove)
     })
     .insertBefore($(this).siblings('.addButton'));
     $(this).parent().sortable("refresh");
-    itemImage.css('margin-top',Math.floor((item.height() - itemImage.height()) / 2));
     return item;
 })
 .bind('sync', function(){
@@ -40,6 +39,7 @@ this.bind('addItem', function(e,src){
         'click' : function(){
             var item = $(self).triggerHandler('addItem').hide();
             var lastVal = $('input', item).val();
+            var imageWrap = item.find('div');
             lastImageCtrl = $('input', item).attr("id");
             window.KCFinder = {};
             window.KCFinder.callBackMultiple = function(files) {
@@ -61,7 +61,7 @@ this.bind('addItem', function(e,src){
                 if(lastVal!=$('input', item).val()){
                     clearInterval(inputListner);
                     //item.css({"opacity":0}).animate({"width":'show', "margin-right":'show'},200).animate({"opacity":1},200).find('img').attr({"src":thumb($('input', item).val())});
-                    item.css({"opacity":0}).animate({"width":'show', "margin-right":'show'},200,function(){itemImage = item.find('img');itemImage.attr({"src":thumb($('input', item).val())}).css('margin-top',Math.floor((item.height() - itemImage.height()) / 2))}).animate({"opacity":1},200);
+                    item.css({"opacity":0}).animate({"width":'show', "margin-right":'show'},200,function(){itemImage = imageWrap.find('img');itemImage.attr({"src":thumb($('input', item).val())}).parent().parent().animate({"opacity":1},200)});
                     
                     $(self).trigger('sync');
                 }
