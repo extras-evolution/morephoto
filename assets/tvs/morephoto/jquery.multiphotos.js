@@ -107,7 +107,32 @@ return this;
 }})(jQuery);
 
 
+function function_exists( function_name ) {
+  // Return TRUE if the given function has been defined
+	// 
+	// +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	// +   improved by: Steve Clay
+	// +   improved by: Legaev Andrey
 
+	if (typeof function_name == 'string'){
+		return (typeof window[function_name] == 'function');
+	} else{
+		return (function_name instanceof Function);
+	}
+}
+
+if (!function_exists('OpenServerBrowser')) {
+	function OpenServerBrowser(url, width, height ) {
+		var iLeft = (screen.width  - width) / 2 ;
+		var iTop  = (screen.height - height) / 2 ;
+		var sOptions = 'toolbar=no,status=no,resizable=yes,dependent=yes' ;
+		sOptions += ',width=' + width ;
+		sOptions += ',height=' + height ;
+		sOptions += ',left=' + iLeft ;
+		sOptions += ',top=' + iTop ;
+		var oWindow = window.open( url, 'FCKBrowseWindow', sOptions ) ;
+	}
+}
 
 
 /*!
